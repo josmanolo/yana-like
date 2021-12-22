@@ -1,20 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ReactElement } from "react";
+import { Provider } from "react-redux";
+import { store, persistor } from './src/app/store';
+import MainNavigation from "./src/routes/MainNavigation";
+import { theme } from "./src/style/theme";
+import { ThemeProvider } from "styled-components/native";
+import { PersistGate } from "redux-persist/integration/react";
 
-export default function App() {
+export default function App(): ReactElement {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <MainNavigation />
+        </ThemeProvider>
+        </PersistGate>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
